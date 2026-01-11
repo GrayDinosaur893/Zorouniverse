@@ -2,15 +2,36 @@ const express = require("express");
 const router = express.Router();
 const Manga = require("../models/Manga");
 
-router.post("/add", async (req, res) => {
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
+
+router.post("/add", upload.single("coverImage"), async (req, res) => {
   try {
-    const manga = new Manga(req.body);
+    const manga = new Manga({
+      title: req.body.title,
+      author: req.body.author,
+      chapters: req.body.chapters,
+      coverImage: req.file ? `/uploads/${req.file.filename}` : ""
+    });
+
     await manga.save();
     res.status(201).json(manga);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
+
 
 router.get("/", async (req, res) => {
   const mangas = await Manga.find();

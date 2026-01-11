@@ -6,7 +6,7 @@ const app = express();
 connectDB();
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("public/uploads"));
 
 app.use("/api/manga", require("./routes/manga"));
 

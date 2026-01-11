@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zorouiverse</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Zorouiverse Manga Library</h1>
+
+<form id="mangaForm" enctype="multipart/form-data">
+  <input type="text" placeholder="Title" id="title" required />
+  <input type="text" placeholder="Author" id="author" />
+  <input type="number" placeholder="Chapters" id="chapters" />
+  <input type="file" id="coverImage" accept="image/*" />
+  <button>Add Manga</button>
+</form>
+
+  <ul id="mangaList"></ul>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
